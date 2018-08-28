@@ -1,0 +1,39 @@
+1.文件的打开和关闭
+函数 open(name[,model[,buffering[,encoding]]])打开或新建文件
+mode :r(读取文件文件指针在开头),
+w(打开文件，用于写入，存在覆盖，不存在则创建)
+a(追加，文件存在则文件指针在末尾，写入原文件内容之后，不存在则新创建一个文件)
+
+rb(二进制打开一个文件用于只读，文件指针在开头),
+wb(二进制格式打开文件用于写入，存在则覆盖，不存在则新创建一个文件)
+
+r+(用于读写(先读后写)，文件指针在开头)，
+w+(打开一个文件用于读写，存在覆盖，不存在新建)
+a+(打开文件读写，文件存在则文件指针在文件末尾，打开是追加模式，不存在则创建文件用于读写)
+
+
+文件打开
+代码：files=open('文件名','打开模式',encoding='utf-8')#显示文件名，模式，编码
+
+文件读取
+read(num):读取文件内容，num代表读取的数据长度(单位字节)无num传入代表读取所有数据
+content=files.read(num)
+
+with open打开
+with open('文件名','r','encoding=utf-8') as files:
+	contents=files.read()
+	print(contents)
+关键字with在不需要访问文件后关闭，可以让Python确定，只管打开文件，在需要的时候使用它，Python自动
+在合适的时候自动关闭
+也可以调用open()和close()来打开关闭文件，但是这样如果程序存在bug，导致close()语句未执行，文件不会关闭
+
+readlines()
+(可以按照行的方式把整个文件内容一次性读取，并且返回的是一个列表，其中每一行的数据为一个元素)
+content=f.readlines()
+i=1
+for listd in content:
+	print('%d:%s'%(i,list))
+	i+=1
+
+文件关闭 
+代码:files.close()
