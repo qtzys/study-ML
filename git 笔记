@@ -1,0 +1,39 @@
+    使用git管理github
+1.git的三个工作区域
+1.工作区（working Direction）:
+添加编辑修改文件
+2.Git仓库(Git Respository):
+保存到仓库，成为一个可见的新版本
+3.暂存区：
+暂存已经修改的文件，统一后到git仓库。
+2.git信息设置
+1：用户名：
+git config –global user.name +用户名
+2.邮箱
+Git config –global user.email +邮箱
+
+3.查看设置:
+Git config –list
+
+3.初始化仓库
+1.新建文件夹
+在bash里使用mkdir+文件夹名字或者直接鼠标右键新建
+2.在文件内部初始化git(建git仓库)
+初始化操作：
+git init
+创建文件:
+touch +文件名
+删除文件
+git rm +文件
+几个小命令:
+cd +下属文件 进入该文件bash
+pwd 查看当前目录
+ls 查看下属文件
+vi +文件名 在文件中（如.py文件）编辑内容
+cat +文件名 查看文件内容
+git远程仓库（备份共享）
+1.	将远程仓库复制到本地（可直接下载，也可以git clone +地址）
+2.	git add +文件名 提交到暂缓区
+3.	git commit –m +”提交描述”提交到仓库
+4.	git push提交到远程仓库
+
