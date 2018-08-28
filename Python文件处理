@@ -1,4 +1,4 @@
-1.文件的打开和关闭
+1.文件的打开和关闭1.文件的打开和关闭
 函数 open(name[,model[,buffering[,encoding]]])打开或新建文件
 mode :r(读取文件文件指针在开头),
 w(打开文件，用于写入，存在覆盖，不存在则创建)
@@ -35,5 +35,25 @@ for listd in content:
 	print('%d:%s'%(i,list))
 	i+=1
 
-文件关闭 
-代码:files.close()
+Pyhon读取的是字符串，需要int()或float()
+
+
+写入文件
+如果文件不存在，函数open自动创建
+我们使用文件对象write()将一个字符串写入程序，这个程序没有终端输出。
+函数write()不会在写入文本末尾添加换行符，需要手动添加\n
+Python只能写入字符串，其他类型需要str转换
+content="hello,world"
+files.write(content)
+with open('文件名','w','encoding=utf-8') as files:
+	content="hello world"
+	files.write(content)
+常用函数
+flush()将缓冲区内容写入硬盘
+tell()返回文件游标当前位置，以文件开头为原点
+seek(offset,whence)offset--开始偏移量，即向后移动字节数，whence:默认值为0.表示从
+什么地方开始偏移，0:文件开始，1:当前位置,2:文件末尾。
+truncate()文件裁成规定大小，默认裁到当前位置，size大于文件大小，可能补0，可能随机加内容
+position=files.tell()
+print('当前位置:',position)
+file.seek(0)转移到文件尾部
