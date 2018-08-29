@@ -1,0 +1,36 @@
+conda 安装及入门
+
+安装后在anaconda Prompt右击以管理员身份运行
+conda list查看目前安装的内容
+避免报错先更新所有的安装包conda upgrade --all
+
+安装包：conda install package_name（fg.：conda install pandas）
+卸载包:conda remove package_names
+更新包：conda update package_name
+列出已安装的包：conda list
+
+
+如果不知道要找的包的确切名称，可以尝试使用 conda search search_term 进行搜索。
+例如，我知道我想安装numpy，但我不清楚确切的包名称。
+我可以这样尝试：conda search num
+
+管理环境:
+安装nb_conda用于notebook自动关联nb_conda的环境:conda install nb_conda
+创建环境:conda create -n env_name package_names
+env_name 是设置环境的名称（-n 是指该命令后面的env_name是你要创建环境的名称），package_names 是你要安装在创建环境中的包名称。
+例如，要创建环境名称为 py3 的环境并在其中安装 numpy，在终端中输入 conda create -n py3 pandas。
+
+创建环境时，可以指定要安装在环境中的 Python 版本
+conda create -n py3 python=3
+进入环境: activate my_env
+离开环境:deactivate
+列出环境: conda env list 当前所在环境的旁边会有一个星号
+默认的环境:root
+删除环境: conda env remove -n env_name
+
+conda 环境中安装 Jupyter notebook:conda install jupyter notebook
+
+在Anaconda终端安装代码自动补全包:conda install pyreadline
+
+
+
