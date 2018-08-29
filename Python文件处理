@@ -57,3 +57,33 @@ truncate()文件裁成规定大小，默认裁到当前位置，size大于文件
 position=files.tell()
 print('当前位置:',position)
 file.seek(0)转移到文件尾部
+
+
+文件夹操作:
+os.getcwd()得到当前工作目录
+os.listdir()返回指定的文件夹包含的文件或者文件夹列表
+os.remove()删除指定文件
+os.rmdir()删除指定目录
+os.mkdir()创建目录  注意:这样只能建一层，想要递归建立，可用os.makdirs()
+os.path.split()返回文件目录和文件名
+os.system()执行shell命令。os.system('cmd')#启动dos
+
+import os
+#获取当前路径
+print(os.getcwd())
+#列出当前或指定目录文件或文件夹,默认当前文件夹
+print(os.listdir())
+print(os.listdir(D:\))
+#判断是否是一个文件(默认当前目录)
+print(os.path.isflie(path))
+#判断文件是否存在
+print(os.path.exists(path))
+#重命名一个文件
+os.rename(path,newname)
+#删除文件
+os.remove(path)
+#返回文件目录和文件名
+os.path.split(path)
+#创建目录(默认当前路径)
+os.mkdir(path/name)
+
