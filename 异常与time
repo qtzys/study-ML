@@ -1,0 +1,101 @@
+Python遇到错误，引发异常，如果异常未被处理或者捕捉，程序返回所谓回溯(Traceback一种错误信息)
+来终止执行
+异常捕获使用try/except/finally语句进行捕获操作，并告诉python发生异常怎么办
+try:
+	<语句>
+except<异常类型1>[异常参数名1]：
+	<异常处理代码1>
+
+except<异常类型2>[异常参数名2]：
+	<异常处理代码2>
+else:
+	<没有异常时候处理代码>
+finally:
+	<不管是否有异常，最终执行的代码块>
+
+try:
+	open('python.txt','r',encoding='utf-8')
+except FileNotFoundError:
+	print("没有这个文件")
+
+else:
+	print("hello")
+finally:
+	print("最终结果")
+
+
+try :
+	print(aaa)
+except NameError as a:
+	print(a)#打印异常，观察异常原因
+
+#通过元组包含多个异常
+try:
+	print(aaa)
+except (NameError,FileNotFoundError) as e:
+	print(e)
+
+
+#所有异常(无论什么异常都可以打印)
+try:
+	print(aaa)
+except Exception as e:
+	print(e)
+
+
+time 模块获取当前时间及格式化的模块
+
+import time
+
+print(time.altzone())#返回格林威治时间偏移秒数
+print(time.asctime())#接受时间元组返回当前时间可读形式(默认返回当前时间)
+print(time.asctime((2017,12,12,12,12,12,3,340,1)))
+
+print(time.clock())返回进程时间第一次调用，第二次调用，第三次调用返回不同结果时间
+
+print(time.ctime())#获取当前时间可读形式
+print(time.time())#@@@@返回当前的时间戳(公元1970.1.1 0：0：0到现在时间秒数)
+ 
+times=time.time()
+print(time.ctime(times))返回可读形式
+
+print(time.gmtime())返回格林威治时间元组
+print(time.localtime())#@@@@@返回当地时间时间元组
+
+
+
+#时间戳转化为时间元组，时间元组转换为字符串
+times=time.time()
+print(time.localtime(times))#转化为时间元组
+
+formattime=time.localtime(times
+
+接受元组进行格式转换，格式由指定的格式返回
+print(time.strftime('%Y-%m-%d %H:%M;%S',formattime))
+
+
+
+#将时间字符串转化为时间元组
+times='2017-12-12 12:12:12'
+formattime=time.strptime(time,'%Y-%m-%d %H:%M;%S')
+
+#将时间元组转化为时间戳
+print(time.mktime(formattime))
+
+sleep(time推迟调用线程运行,secs指秒数)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
