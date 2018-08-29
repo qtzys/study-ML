@@ -1,0 +1,193 @@
+线程是程序执行的最小单位，进程是操作系统分配资源的最小单位
+进程包含线程，进程与进程相互隔离
+线程上下文切换更加快
+
+在单线程中，当处理器需要处理多个任务的时候，必须对这些任务安排顺序，
+并按照顺序执行任务。
+def music(name,loop):
+	for i in range(loop):
+		print('listen music %s %s'%(name,time.ctime()))
+	time.sleep(2)
+
+def movie(name,loop):
+	for i in range(loop):
+		print('look movie %s %s'%(name,time.ctime()))
+	time.sleep(2)
+if __name__=='__main__':
+	music('爱的故事上集'，3)
+	movie('肖申克的救赎'，4)
+	print('end time %s'%time.ctime())
+
+import time
+import threading
+
+#单线程
+def music(name,loop):
+	for i in range(loop):
+		print('listen music %s %s'%(name,time.ctime()))
+		time.sleep(1)
+def movie(name,loop):
+	for i in range(loop):
+		print('look movie %s %s'%(name,time.ctime()))
+		time.sleep(1)
+
+if __name__=='__main__':
+	music('爱的故事上集'，3)
+	movie('肖申克的救赎'，4)
+	print('end time %s'%time.ctime())
+
+Python只支持一个线程。Python假的多线程
+Python多线程模块
+1.thread模块2.threading模块
+thread不支持守护线程，当主线程退出的时候，子线程不管是否工作，都被强行退出。
+不期望此事发生，引入守护线程概念。threading模块支持守护线程
+
+多线程基本步骤：
+（1.直接调用函数 2.可调用类对象 3.子类化Thread类）-->创建多个线程-->启动线程
+
+threading.Thread(self,group=None,traget=None,name=None,arg=(),kwargs={})
+group预留的，用于扩展
+target可调用对象(也称为活动(activity))在线程启动后执行
+name线程名字，默认值为"Thread-N"，N为一个数字
+参数args和kwargs分别调用target时参数列表和关键字参数
+
+#多线程
+
+def music(name,loop):
+	for i in range(loop):
+		#可以打印线程名字
+		print('listen music %s %s %s'%(name,time.ctime()),threading.Thread.getName(t1))
+		time.sleep(1)
+def movie(name,loop):
+	for i in range(loop):
+		print('look movie %s %s'%(name,time.ctime()))
+		time.sleep(1)
+
+#创建多线程，两种方法为线程命名
+t1=threading.Thread(target=music,args=('爱的故事上集'，3))
+t1.setName('musicThread')
+t2=threading.Thread(target=movie,args=('肖申克的救赎'，4),name="movieThread")
+
+
+
+
+if __name__=='__main__':
+	
+	#守护主线程结束杀死子线程
+	t1.setDaemon(True)
+	t2.setDaemon(True)
+	
+	#启动线程,两个线程交替进行
+	t1.start()
+	t2.start()
+	print('end time %s'%time.ctime())
+	print(t1.ident)#第一个标识符
+	t1.join()#使主线程阻塞，待所有的线程结束再运行主线程，否则主线程先结束
+	t2.join()
+	print('主线程：%s'%time.ctime())
+
+
+
+Tread.jion([timeout])#调用Thread.join将使主线程堵塞，直到被调用的线程结束
+或者超时。参数timeout是一个数值类型，表示超过时间，未提供参数，则主调用线程将一直堵塞直到调线结束
+
+子线程:包含在threading.Thread中，里面均视为子线程
+主线程:除了"不包含在Thread里面的程序"UI界面和Mian均为主线程，均可视为主线程
+
+线程的守护
+setDaemon:主线程A启动了子线程B调用B.setDaemon(True)则主线程结束会把子线程B杀死
+必须运行线程之前设置
+
+
+#加锁
+balance=0
+
+def change(n):
+	global balance
+	balance+=n
+	balance-=n
+lock=threading.Lock()#获取线程锁
+#和单线程没什么区别了
+for run_thread(n):
+	for i in range(1000000):
+	#获取锁
+	lock.acquire()
+	try:
+		change(n)
+	finally:
+		lock.release()	
+
+
+t1=threading.Tread(targe=run_thread,args=(4,))
+t1=threading.Tread(targe=run_thread,args=(8,))
+
+t1.start()
+t2.start()
+t1.join()
+t2.join()
+
+#抢资源导致balance变成不同结果
+
+Multiprocession多进程管理包
+
+import Multiprocession
+
+def work_1(f,n):
+	print('wrok_1 start')	
+	for i in range(n):
+		with open(f,'a')as fs:
+			fs.write("helllo")
+			time.sleep(1)
+	print('wrok_1 end')
+
+def work_2(f,n):
+	print('wrok_2 start')	
+	for i in range(n):
+		with open(f,'a')as fs:
+			fs.write("hello")
+			time.sleep(1)
+	print('wrok_2 end')
+
+if __name__=='__main__':
+	p1=multiprocession.Process(targe=work_1,args=('file,txt',3))
+	p2=multiprocession.Process(targe=work_2,args=('file,txt',3))
+	p1.start()
+	p2.start()
+	work_1('file.txt',3)
+	work_2('file.txt',3)
+
+
+#给进程加锁
+import Multiprocession
+
+def work_1(f,n,lock):
+	print('wrok_1 start')	
+	lock.acquire()
+	for i in range(n):
+		with open(f,'a')as fs:
+			fs.write("helllo")
+			time.sleep(1)
+	print('wrok_1 end')
+	lock.release()
+
+def work_2(f,n,lock):
+	lock.acquire()
+	print('wrok_2 start')	
+	for i in range(n):
+		with open(f,'a')as fs:
+			fs.write("hello")
+			time.sleep(1)
+	print('wrok_2 end')
+	lock.release()
+
+if __name__=='__main__':
+	lock=multiprocession.lock()
+	p1=multiprocession.Process(targe=work_1,args=('file,txt',3,lock))
+	p2=multiprocession.Process(targe=work_2,args=('file,txt',3,lock))
+	p1.start()
+	p2.start()
+	work_1('file.txt',3)
+	work_2('file.txt',3)
+
+pool进程池，一个个进行
+排队队列进程，把与GET方法put方法
