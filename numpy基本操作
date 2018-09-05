@@ -1,0 +1,358 @@
+
+# coding: utf-8
+
+# In[82]:
+
+
+import numpy as np
+
+
+# In[14]:
+
+
+import pandas as pd
+#pandas两种数据结构:series,与DataFrame
+#series创建
+ser01=pd.Series([1,2,3,4])
+print(ser01)
+print(ser01.dtype)
+#值
+print(ser01.values)
+#索引
+print(ser01.index)
+print(id(ser01))
+
+
+# In[15]:
+
+
+#设置索引,通过index属性设置索引
+ser01.index=['a','b','c','d']
+ser01
+
+
+# In[18]:
+
+
+ser01=pd.Series([1,2,3,4],index=['a','b','c','d'])
+ser01
+
+
+# In[19]:
+
+
+#通过字典方式创建
+ser02=pd.Series({'a':10,'b':20,'c':30})
+ser02
+
+
+# In[25]:
+
+
+#通过索引获取值
+print(ser02['a'])
+#通过下表获取索引
+print(ser02[0])
+#切片获得(包含索引)
+print(ser02['a':'b'])
+print(ser02[0:2])
+
+
+# In[27]:
+
+
+#series运算
+print(ser02[ser02>10])
+print(ser02+1)
+
+
+# In[30]:
+
+
+#缺失值处理
+ser03=pd.Series(ser01,index=['a','b','c','d'])
+ser03
+
+
+# In[35]:
+
+
+#判断是否为空及过滤空值
+print(pd.isnull(ser03))
+print(ser02[pd.notnull(ser03)])
+
+
+# In[38]:
+
+
+#相加，相同索引相加，没有的
+ser01=pd.Series([1,2,3,4],index=['a','b','c','d'])
+ser02=pd.Series([1,2,3,4],index=['e','a','b','f'])
+print(ser01,ser02)
+print(ser01+ser02)
+
+
+# In[39]:
+
+
+#给索引加标签
+ser01=pd.Series([1,2,3,4],index=['a','b','c','d'])
+ser01.name='aaaa'
+ser01.index.name="names"
+ser01
+
+
+# In[44]:
+
+
+df01=pd.DataFrame([['joe','sun'],['1','2']],index=['one','two'],columns=['001','002'])
+print(df01)
+print(df01.index)
+print(df01.columns)
+print(df01.values)
+
+
+# In[47]:
+
+
+#通过字典创建
+df01=pd.DataFrame({'name':['joe','susan','jk'],'sex':['f','m','f']})
+df01
+
+
+# In[49]:
+
+
+#列索引获取数据
+print(df01['name'])
+print(df01.name)
+
+
+# In[58]:
+
+
+#列添加
+df01['address']=['上海','北京','广东']
+df01
+
+
+# In[59]:
+
+
+#列删除
+df001=df01.pop('address')
+print(df001)
+df01
+
+
+# In[61]:
+
+
+#列修改
+df01['sex']=['m','m','m']
+df01
+
+
+# In[67]:
+
+
+#行获取(两个都可以)
+# df01.ix[0]
+print(df01.loc[2])
+print(df01.loc[0]['name'])
+print(df01.loc[0,'name'])
+
+
+# In[70]:
+
+
+#行增加
+df01.loc['four']=[21,3]
+print(df01)
+
+
+# In[71]:
+
+
+#行修改
+df01.loc['four']=['i','m']
+df01
+
+
+# In[72]:
+
+
+#行删除,drop有返回值，要重新赋给新的值
+df02=df01.drop('four')
+df02
+
+
+# # 读取文件
+
+# #读取csv或者txt
+# pd.read_csv()
+# #读取excel
+# pd.read_excel()
+# #读取txt通过；来读,通过header=None
+# df=pd.read_csv(path,sep=';',header=None)
+# 
+
+# In[80]:
+
+
+df01=pd.DataFrame({'name':['joe','susan','jk'],'sex':['f','m','f']})
+print(df01.columns)
+
+
+# In[81]:
+
+
+df01[df01.columns[1:]]
+
+
+# In[103]:
+
+
+df01=pd.DataFrame(np.random.randint(1,9,size=(4,4)))
+df01
+
+
+# In[108]:
+
+
+df01.loc[1:2,1]=np.NaN
+df01.loc[1:2,3]=np.NaN
+
+df01
+
+
+# In[100]:
+
+
+# df01.dropna()#删除含有NaN的空
+#df01.dropna(how='all')#当整个行为空的时候删除
+#删除列
+# df01.dropna(axis=1)
+
+
+# In[115]:
+
+
+#填充NaN为**
+df01.fillna(0)
+
+
+# In[116]:
+
+
+print(df01)
+df01.fillna({0:1,1:2,2:3,3:4})
+print(df01)
+
+
+# 数学统计方法
+
+# In[121]:
+
+
+df01=pd.DataFrame(np.random.randint(1,9,size=(4,4)))
+print(df01)
+
+
+# In[124]:
+
+
+#默认按列求和
+print(df01.sum())
+#按行求和
+print(df01.sum(axis=1))
+#每列最小值
+print(df01.min())
+#每列中位数
+print(df01.median())
+#样
+print(df01.quantile(0.75))
+
+
+# In[125]:
+
+
+#每行累加
+print(df01.cumsum())
+
+
+# In[126]:
+
+
+#计算百分位变换,涨跌幅度
+df01.pct_change()
+
+
+# In[130]:
+
+
+print(df01.var())#每列方差
+print(df01.std())#每列平均差
+
+
+# In[131]:
+
+
+print(df01.describe())#每列的描述
+
+
+# 相关系数与协方差
+
+# In[133]:
+
+
+df01=pd.DataFrame({'GDP':[400,500,600,700],'forgin_trade':[100,200,300,400],'year':['2012','2013','2014','2015']
+                  })
+df01
+
+
+# In[136]:
+
+
+#label的协方差
+df01.cov()
+
+
+# In[137]:
+
+
+#相关系数
+df01.corr()
+
+
+# In[138]:
+
+
+#值计数
+ser02=pd.Series(['a','b','c','d','a','a'])
+ser02
+
+
+# In[144]:
+
+
+#剔除重复的数
+ser03=ser02.unique()
+print(ser03)
+print(ser02.value_counts())
+
+
+# In[145]:
+
+
+#in,成员资格
+ser02.isin(['b','d'])
+
+
+# In[146]:
+
+
+#剔除数据
+ser03=ser02[ser02.isin(['b','d'])]
+ser03
+
