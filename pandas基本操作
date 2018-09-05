@@ -1,0 +1,474 @@
+
+# coding: utf-8
+
+# In[3]:
+
+
+print("hello")
+
+
+# In[4]:
+
+
+import numpy as np
+
+
+# 创建数组
+
+# In[5]:
+
+
+# help(np.array)
+
+
+# In[6]:
+
+
+#创建一维数组(列表元组均可)
+np.array([1,2,3])
+np.array((1,2,3))
+
+
+# In[7]:
+
+
+#多维列表(备注array([]))
+np.array([[1,2,3,4],
+        [5,6,7,8]])
+
+
+# In[8]:
+
+
+#三维数组
+np.array([[[1,2,3],[1,2,3]],[[1,2,3]]])
+
+
+# In[9]:
+
+
+#通过zeros(shape)创建一个元素皆为0的数组
+np.zeros((2,3))
+
+
+# In[10]:
+
+
+np.zeros((2,3,4))
+
+
+# In[11]:
+
+
+#ones生成元素为1的数组
+np.ones((2,3))
+
+
+# In[12]:
+
+
+#empty初始化的数组
+np.empty((2,3))
+
+
+# 其他创建方式
+
+# In[13]:
+
+
+#arange()生成一位数组
+print(np.arange(9,1,-2))
+np.arange(9)
+
+
+# In[14]:
+
+
+#lispace生成等差数列(start,end,step)
+np.linspace(1,10,5)
+
+
+# In[15]:
+
+
+#logspace(10^0,10^2,step=5)
+np.logspace(0,2,5)
+
+
+# In[16]:
+
+
+#使用random创建随机数(0--1)
+
+np.random.random((3,3))
+
+
+# In[17]:
+
+
+#创建随机整数(start,end,size)
+np.random.randint(10,20,size=(3,3))
+
+
+# In[18]:
+
+
+#生成一个标准正态分布的数组
+np.random.randn(2,3)
+
+
+# In[19]:
+
+
+#生成0到1之间的随机数，且是一维的
+np.random.rand(9)
+
+
+# ndim数组维度的个数(即数组的秩)
+
+# In[20]:
+
+
+#ndim数组维度的个数(即数组的秩)
+arr=np.random.randint(1,9,size=(3,3,3))
+#查看维度
+print(arr.ndim)
+#查看形状
+print(arr.shape)
+#查看类型
+print(arr.dtype)
+#查看字节数
+print(arr.itemsize)
+#查看元素个数
+print(arr.size)
+
+
+# In[21]:
+
+
+arr2=np.array([1,2,3,4])
+print(arr2.dtype)
+#修改数组类型
+arr3=arr2.astype(float)
+print(arr3.dtype)
+
+
+# In[22]:
+
+
+#创建数组的同时指定类型
+arr4=np.array([1,2,3,4],dtype=float)
+print(arr4.dtype)
+
+
+# In[23]:
+
+
+print(np.array(['Python','Java','C']))#类型U6是字符串最长为6
+
+
+# In[24]:
+
+
+#shape修改
+arr=np.random.randint(1,9,size=(2,5))
+print(arr.shape)
+#修改形状
+arr.shape=(5,2)
+arr
+
+
+# In[25]:
+
+
+#-1自动补充，例如五列，自动改多少行
+arr.shape=(-1,5)
+arr.shape=(5,-1)#有五行，变成多少列
+#使用reshape修改
+arr=np.arange(9)
+arr
+
+
+# In[26]:
+
+
+
+#reshape与原数组共享一个地址
+arr2=arr.reshape(3,3)
+arr2[0][1]=100
+arr2
+
+
+# In[27]:
+
+
+arr
+
+
+# In[28]:
+
+
+#直接创建改形状
+arr=np.arange(9).reshape(3,3)
+arr
+
+
+# 数组与标量的运算
+
+# In[29]:
+
+
+#矩阵加
+arr=np.arange(0,9).reshape(3,3)
+print(arr)
+print(arr+2)
+
+
+# In[30]:
+
+
+#两个矩阵相加相乘必须相等
+arr1=np.array([[10,20,30],[40,50,60]])
+arr2=np.array([[1,2,3],[4,5,6]])
+print(arr1)
+print(arr2)
+
+
+# In[31]:
+
+
+print(arr1+arr2)
+
+
+# In[32]:
+
+
+print(arr1*arr2)
+
+
+# In[33]:
+
+
+#矩阵广播
+arr1=np.array([[1,2,3],[4,5,6],[7,8,9]])
+arr2=np.array([[1,2],[3,4],[5,6]])
+np.dot(arr1,arr2)
+
+
+# In[34]:
+
+
+#二维数组，axis=0行，axis=1列
+arr=np.random.randint(1,9,size=(2,3,3))
+arr
+
+
+# In[35]:
+
+
+#取3
+print(arr[0,0,2])
+#或者
+print(arr[0][0][2])
+
+
+# In[36]:
+
+
+#切片：维度都保留，直接：;
+print(arr[:,:,1:3])
+
+
+# In[37]:
+
+
+#跨着切
+print(arr[0,0:3:2,1:3])#第二个步长
+
+
+# 花式索引
+
+# In[38]:
+
+
+arr=np.random.randint(1,9,size=(8,4))
+arr
+
+
+# In[39]:
+
+
+#获取0,3,5行数据
+print(arr[[0,3,5]])
+
+
+# In[40]:
+
+
+#获取0,0 3,3 5,2数据
+print(arr[[0,3,5],[0,3,2]])
+
+
+# In[41]:
+
+
+#索引器(第一行的0,3,2.第二行的0,3,2.第4行的0,3,2)
+print(arr[np.ix_([0,3,5],[0,3,2])])
+
+
+# Numpy类数组类称作ndarray通常被称为数组
+
+# In[42]:
+
+
+#布尔索引
+arr1=np.random.random((3,3))
+arr
+
+
+# In[43]:
+
+
+arr2=arr1<5
+arr2
+
+
+# In[44]:
+
+
+name=np.array(['joe','susan','Tom'])
+score=np.array([
+    [70,80,90],
+    [77,88,99],
+    [66,86,96]])
+classes=np.array(['语文','数学','英语'])
+
+
+# In[45]:
+
+
+#查看joe
+name[name=='joe']
+
+
+# ### Numpy不能用and or 等等
+
+# In[46]:
+
+
+name2=(name=='joe')|(name=='susan')
+name2
+
+
+# In[47]:
+
+
+score[name=='joe']
+
+
+# In[48]:
+
+
+score[name=='joe',classes=='数学']
+
+
+# ### 数组的装置与轴转换
+
+# ### 常用一元函数
+
+# In[49]:
+
+
+#绝对值
+arr=np.array([-1,-2,-3])
+np.abs(arr)
+
+
+# In[50]:
+
+
+#平方根/指数e
+arr=np.random.randint(1,9,size=(1))
+print(arr)
+print(np.sqrt(arr))
+print(np.exp(arr))
+#判断是否为数字
+print(np.isnan(arr))
+#判断是否有穷
+print(np.isfinite(arr))
+#判断是否无穷
+print(np.isinf(arr))
+
+
+# In[51]:
+
+
+#比较两个数组大小
+arr1=np.random.randint(1,9,size=(3,3))
+arr2=np.random.randint(1,9,size=(3,3))
+np.greater(arr1,arr2)
+
+
+# In[52]:
+
+
+#计算最大值，最小值
+print(arr1.min())
+print(arr1.max())
+print(arr1.mean())
+
+
+# In[53]:
+
+
+#每一行的最小值，每一列的平均值,每一列的标准差
+print(arr1.min(axis=0))
+print(arr1.mean(axis=1))
+print(arr1.std(axis=1))
+
+
+# In[54]:
+
+
+#where函数
+#np.where函数是三元表达式x if condition else y的矢量化版本
+# help(np.where)#where(condition,x,y)
+arr=np.where([[True,False],[True,False]],[[1,2],[3,4]],[[9,8],[7,6]])
+arr
+
+
+# In[55]:
+
+
+print(arr1,arr2)
+print(np.where(arr1>arr2))
+
+
+# In[56]:
+
+
+#删除特点条件操作
+arr=np.array([[1,2,3,np.NaN],
+            [1,2,3,np.pi],
+            [1,2,3,np.e]])
+arr
+condition=np.isnan(arr)|np.isinf(arr)
+arr2=np.where(condition,0,arr)
+arr2
+
+
+# In[57]:
+
+
+#unique去重复操作
+arr=np.array(['a','b','c','d','a','c'])
+print(arr)
+arr2=np.unique(arr)
+print(arr2)
+
+
+# In[60]:
+
+
+arr
+
