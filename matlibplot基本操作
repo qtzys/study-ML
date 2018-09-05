@@ -1,0 +1,267 @@
+
+# coding: utf-8
+
+# In[35]:
+
+
+#导入模块
+import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib as mpl
+#显示情况
+#在GUI中显示
+# %matplotlib tk 
+#在行内显示
+get_ipython().run_line_magic('matplotlib', 'inline')
+
+
+# In[14]:
+
+
+plt.plot([1,2,3],[5,7,4])
+plt.show()
+
+
+# In[17]:
+
+
+#figure图像,一个图像只能有一个figure，但可以有多个图片.
+x=np.arange(-3,3,0.1)
+y1=np.sin(x)
+y2=np.cos(x)
+#创建第一个图像
+plt.figure()
+plt.plot(x,y1)
+plt.plot(x,y2)
+plt.show()
+
+
+# In[20]:
+
+
+#指定画布大小
+plt.figure(num=5,figsize=(8,5))
+plt.plot(x,y1)
+plt.figure()
+plt.plot(x,y2)
+plt.show()
+
+
+# In[21]:
+
+
+#允许多个x,y plot(x,y1,x,y2)
+plt.figure()
+plt.plot(x,y1,x,y2)
+plt.show()
+
+
+# In[22]:
+
+
+#如果只传一个值，默认y值,x从0到n
+plt.figure()
+plt.plot(y1)
+plt.show()
+
+
+# In[24]:
+
+
+# plot(x,y.color,linestyle)设置线条颜色类型等等
+plt.figure()
+#红色虚线
+#plt.plot(x,y1,color='red',linestyle='dashed')
+plt.plot(x,y1,color='red',linestyle='--')
+plt.show()
+
+
+# In[27]:
+
+
+plt.figure()
+#用什么来标记marker,alpha透明度
+plt.plot(x,y1,color='red',linestyle='--',marker='o',alpha=0.5)
+plt.show()
+
+
+# In[30]:
+
+
+#简写方式red圆圈标记虚线
+plt.figure()
+plt.plot(x,y1,('ro--'))
+
+
+# 刻度标题，标签，和图列
+
+# In[34]:
+
+
+x1=[1,2,3]
+y1=[5,3,7]
+x2=[1,2,3]
+y2=[3,2,7]
+plt.figure()
+plt.plot(x1,y1,'ro--',label='firstline')
+plt.plot(x2,y2,'ro--',label='secondline')
+#使用legend显示标签，否则不显示
+plt.legend()
+plt.show()         
+
+
+# In[43]:
+
+
+# 解决中文显示问题
+mpl.rcParams['font.sans-serif']=['SimHei']
+mpl.rcParams['axes.unicode_minus']=False
+
+
+# In[49]:
+
+
+x1=[1,2,3]
+y1=[5,3,7]
+x2=[1,2,3]
+y2=[3,2,7]
+plt.figure()
+plt.plot(x1,y1,'ro--',label='出口')
+plt.plot(x2,y2,'bo--',label='进口')
+#设置轴(标题)标签
+plt.xlabel('月份')
+plt.ylabel('美元')
+plt.title('进出口数据')
+#设置x,y坐标轴范围
+plt.xlim(0,6)
+plt.ylim(0,15)
+#设置刻度
+plt.xticks([1,2,3,4,5,6])
+plt.yticks(np.arange(2,16,2))
+#使用legend显示标签，否则不显示
+plt.legend()
+plt.show()     
+
+
+# In[56]:
+
+
+x1=[1,2,3]
+y1=[5,3,7]
+x2=[1,2,3]
+y2=[3,2,7]
+plt.figure()
+plt.plot(x1,y1,'ro--',label='出口')
+plt.plot(x2,y2,'bo--',label='进口')
+#设置轴(标题)标签
+plt.xlabel('月份')
+plt.ylabel('美元')
+plt.title('进出口数据')
+#设置x,y坐标轴范围
+plt.xlim(0,6)
+plt.ylim(0,15)
+#设置刻度
+# plt.xticks([1,2,3,4,5,6])
+# plt.yticks(np.arange(2,16,2))
+#设置月份,及标签
+plt.xticks([1,2,3,4,5,6],[str(i)+'月' for i in range(1,7)])
+plt.yticks(np.arange(2,16,2),['200','300','400','500','600','700','800'])
+#获取坐标轴信息
+ax=plt.gca()
+#设置边框
+#设置top为Red
+ax.spines['top'].set_color('red')
+#上面设置为空
+ax.spines['top'].set_color('None')
+#右边设置为空
+ax.spines['right'].set_color('None')
+
+#使用legend显示标签，否则不显示
+plt.legend()
+plt.show()     
+
+
+# In[63]:
+
+
+#subplot创建子图,一个figure创建多个子对象
+x1=[1,2,3]
+y1=[5,3,7]
+x2=[1,2,3]
+y2=[3,2,7]
+#创建图像
+plt.figure()
+#创建子图
+#221 2行2列当中的第一份
+plt.subplot(221)
+plt.plot(x1,y1,'bo--')
+#221 2行2列当中的第四份
+plt.subplot(224)
+plt.plot(x2,y2,'yo--')
+plt.show()
+
+
+# In[66]:
+
+
+#面向对象的形式
+x1=[1,2,3]
+y1=[5,3,7]
+x2=[1,2,3]
+y2=[3,2,7]
+
+#创建图形
+fig=plt.figure()
+#创建子图
+ax1=fig.add_subplot(221)
+ax2=fig.add_subplot(222)
+ax3=fig.add_subplot(212)
+
+#在ax1,ax2,ax3上画图
+ax1.plot(np.random.randn(50).cumsum(),'g--')
+ax2.plot(np.random.randn(50).cumsum(),'r--')
+ax3.plot(np.random.randn(50).cumsum(),'b--')
+
+
+# In[73]:
+
+
+#subplots返回一个图像与多个子图
+fig,axes=plt.subplots(2,2)
+print(fig)
+print(axes)
+
+
+# In[78]:
+
+
+#共享x,y轴
+fig,axes=plt.subplots(nrows=4,ncols=1,sharex=True,sharey=True)
+
+#axes为一个列表
+axes[0].plot(range(10),'ro--')
+axes[1].plot(range(10),'bo--')
+axes[2].plot(range(10),'yo--')
+axes[3].plot(range(10),'go--')
+
+plt.show()
+
+
+# In[82]:
+
+
+#例子
+fig,axes=plt.subplots(2,2,sharex=True,sharey=True)
+
+for i in range(2):
+    for j in range(2):
+        axes[i][j].hist(np.random.randn(100),10,color='m',alpha=0.75)
+#调整间隔(每个图像的间隔)
+plt.subplots_adjust(wspace=0.3,hspace=0.3)  
+#设置标题
+fig.suptitle('test',fontsize=20)
+#保存图片,dpi像素，每一英寸有多少个点
+plt.savefig('test.png',dpi=50)
+
+plt.show()
+
