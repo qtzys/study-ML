@@ -1,3 +1,14 @@
 Pyhton左移ñ为原数乘2^n
 Python右移n位原始与2^n的商取
 （具体可由二进制码推出）
+
+
+str1.join(str2)str1与str2相连接
+collections.counter(str)简单的计数器，例如统计字符串每个字符出现个数,注意collections模块
+
+
+ord() 函数是 chr() 函数（对于8位的ASCII字符串）或 unichr() 函数（对于Unicode对象）的配对函数，
+它以一个字符（长度为1的字符串）作为参数，返回对应的 ASCII 数值，
+或者 Unicode 数值，如果所给的 Unicode 字符超出了你的 Python 定义范围，则会引发一个 TypeError 的异常
+
+chr() 用一个范围在 range（256）内的（就是0～255）整数作参数，返回一个对应的字符，即ascii码对应的字符
